@@ -53,7 +53,7 @@
   "scripts": {
     "start": "NODE_ENV=production node ./bootstrap.js",
     "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
-    "dev:watch": "chokidar proto/*.proto -c 'yarn proto:generate && yarn dev'",
+    "dev:watch": "chokidar proto/*.proto --initial -c 'yarn proto:generate && yarn dev'",
     "test": "midway-bin test --ts",
     "cov": "midway-bin cov --ts",
     "lint": "mwts check",

@@ -49,7 +49,6 @@ export namespace google {
   /* package protobuf start */
   export namespace protobuf {
     // tslint:disable-next-line:no-empty-interface
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface Empty {}
   }
   /* package protobuf end */

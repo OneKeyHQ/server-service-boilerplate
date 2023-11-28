@@ -1,0 +1,56 @@
+{
+  "name": "service-example",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.454.0",
+    "@aws-sdk/client-secrets-manager": "^3.454.0",
+    "@faker-js/faker": "^8.3.1",
+    "@midwayjs/grpc": "3.12.8",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dotenv": "^16.3.1",
+    "mongoose-delete": "^1.0.1",
+    "service-base": "git+ssh://git@github.com:OneKeyHQ/server-service-boilerplate.git#feat/base_package"
+  },
+  "devDependencies": {
+    "@midwayjs/cli": "^2.1.1",
+    "@midwayjs/mock": "^3.13.0",
+    "@types/jest": "^29.5.10",
+    "@types/koa": "^2.13.12",
+    "@types/mongoose-delete": "^1",
+    "@types/node": "20.10.0",
+    "cross-env": "^7.0.3",
+    "eslint-plugin-import": "^2.29.0",
+    "jest": "^29.7.0",
+    "mwts": "^1.3.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "~5.3.2"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node ./bootstrap.js",
+    "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
+    "test": "midway-bin test --ts",
+    "cov": "midway-bin cov --ts",
+    "lint": "mwts check",
+    "lint:fix": "mwts fix",
+    "ci": "npm run cov",
+    "build": "midway-bin build -c",
+    "update-base": "rm -rf node_modules yarn.lock && touch yarn.lock && yarn"
+  },
+  "midway-bin-clean": [
+    ".vscode/.tsbuildinfo",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "anonymous",
+  "license": "MIT",
+  "packageManager": "yarn@4.0.2"
+}

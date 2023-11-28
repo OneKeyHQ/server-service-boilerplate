@@ -1,4 +1,4 @@
-import type { MidwayConfig } from '@midwayjs/core';
+import type { MidwayConfig } from 'service-base/dist/midway/core';
 
 export default {
   koa: {

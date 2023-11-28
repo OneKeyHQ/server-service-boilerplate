@@ -1,6 +1,3 @@
-import { hostname } from 'os';
-import { join } from 'path';
-
 import {
   App,
   Config,
@@ -9,32 +6,28 @@ import {
   Inject,
   MidwayLoggerService,
 } from '@midwayjs/core';
+import * as DefaultConfig from './config/config.default';
+
 import * as crossDomain from '@midwayjs/cross-domain';
-import * as grpc from '@midwayjs/grpc';
 import * as i18n from '@midwayjs/i18n';
 import * as koa from '@midwayjs/koa';
-import { IMidwayLogger } from '@midwayjs/logger';
 import * as mongoose from '@midwayjs/mongoose';
 import * as redis from '@midwayjs/redis';
 import * as swagger from '@midwayjs/swagger';
 import * as validate from '@midwayjs/validate';
-import { sync } from 'read-pkg';
-
-import { DefaultErrorFilter } from './filter/default.filter';
+import { ResponseWraperMiddleware } from './middleware/response-wraper';
+import { DefaultErrorFilter } from './filter/error.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
-import { ResponseWraperMiddleware } from './middleware/response-wraper.middleware';
-import { CloudwatchTransport } from './utils/logger';
-import { registerModel } from './utils/rigister-model';
+import { registerModel } from './utils/register-model';
 
 @Configuration({
+  namespace: 'service-base',
   imports: [
-    // bull,
     koa,
     validate,
     mongoose,
     i18n,
     redis,
-    grpc,
     {
       component: crossDomain,
       enabledEnvironment: ['local'],
@@ -44,9 +37,13 @@ import { registerModel } from './utils/rigister-model';
       enabledEnvironment: ['local'],
     },
   ],
-  importConfigs: [join(__dirname, './config')],
+  importConfigs: [
+    {
+      default: DefaultConfig,
+    },
+  ],
 })
-export class MainConfiguration {
+export class ServiceBaseConfiguration {
   @App('koa')
   app: koa.Application;
 
@@ -70,27 +67,7 @@ export class MainConfiguration {
     this.app.useMiddleware([ResponseWraperMiddleware]);
     this.app.useFilter([DefaultErrorFilter, NotFoundFilter]);
 
-    if (this.envConfig === 'production') {
-      const cloudwatchTransport = new CloudwatchTransport({
-        app: this.app.getProjectName(),
-        hostname: hostname(),
-        version: sync().version,
-        awsAccessKeyId: this.awsConfig.awsAccessKeyId,
-        awsSecretKey: this.awsConfig.awsSecretKey,
-        awsRegion: this.awsConfig.awsRegion,
-      });
-
-      const appLogger = this.loggerService.getLogger(
-        'appLogger'
-      ) as IMidwayLogger;
-      appLogger.add(cloudwatchTransport);
-      const coreLogger = this.loggerService.getLogger(
-        'coreLogger'
-      ) as IMidwayLogger;
-      coreLogger.add(cloudwatchTransport);
-    }
-
     const connection = this.dataSourceManager.getDataSource('default');
-    await registerModel(applicationContext, connection, __dirname);
+    await registerModel(applicationContext, connection, this.app.getBaseDir());
   }
 }

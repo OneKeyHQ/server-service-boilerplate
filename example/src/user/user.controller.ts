@@ -1,10 +1,9 @@
-import { Body, Controller, Inject, Post } from '@midwayjs/core';
 import { ApiResponse } from '@midwayjs/swagger';
-
-import { SuccessWrapper } from '../utils/success-wraper';
 
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
+import { SuccessWrapper } from 'service-base';
+import { Body, Controller, Inject, Post } from '@midwayjs/core/dist/decorator';
 
 @Controller('/user')
 export class UserController {

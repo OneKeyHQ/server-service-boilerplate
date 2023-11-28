@@ -19,6 +19,19 @@ function findDuplicates<T>(array: T[]): T[] {
   return duplicates;
 }
 
+const isMongooseSchema = (obj: any): obj is Schema => {
+  if(!obj) {
+    return false;
+  }
+  if(obj instanceof Schema) {
+    return true;
+  }
+  if(obj?.constructor?.name === 'Schema') {
+    return true;
+  }
+  return false;
+}
+
 const getAllEntitySchemas = async (filePath: string) => {
   const schemas: {
     name: string;
@@ -28,7 +41,7 @@ const getAllEntitySchemas = async (filePath: string) => {
   for (const file of files) {
     const data = await import(file);
     for (const [k, v] of Object.entries(data)) {
-      if (!(v instanceof Schema)) {
+      if (!isMongooseSchema(v)) {
         continue;
       }
       schemas.push({

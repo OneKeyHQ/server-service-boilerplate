@@ -1,7 +1,7 @@
-import { Init, Inject, Provide } from '@midwayjs/core';
 import { Clients } from '@midwayjs/grpc';
 
 import { token } from '../types/network';
+import { Init, Inject, Provide } from 'service-base/dist/midway/core';
 
 @Provide()
 export class TokenService {

@@ -1,5 +1,5 @@
-import { ApiProperty } from '@midwayjs/swagger';
-import { Rule, RuleType } from '@midwayjs/validate';
+import { ApiProperty } from 'service-base/dist/midway/swagger';
+import { Rule, RuleType } from 'service-base/dist/midway/validate';
 
 export class UserDTO {
   @ApiProperty({

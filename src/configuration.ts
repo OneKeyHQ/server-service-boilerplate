@@ -15,7 +15,7 @@ import * as mongoose from '@midwayjs/mongoose';
 import * as redis from '@midwayjs/redis';
 import * as swagger from '@midwayjs/swagger';
 import * as validate from '@midwayjs/validate';
-import { ResponseWraperMiddleware } from './middleware/response-wraper';
+import { ResponseWraperMiddleware } from './middleware/response-wrapper';
 import { DefaultErrorFilter } from './filter/error.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { registerModel } from './utils/register-model';
@@ -67,7 +67,10 @@ export class ServiceBaseConfiguration {
     this.app.useMiddleware([ResponseWraperMiddleware]);
     this.app.useFilter([DefaultErrorFilter, NotFoundFilter]);
 
-    const connection = this.dataSourceManager.getDataSource('default');
-    await registerModel(applicationContext, connection, this.app.getBaseDir());
+    await registerModel({
+      container: applicationContext,
+      dataSourceManager: this.dataSourceManager,
+      filePath: this.app.getBaseDir(),
+    });
   }
 }

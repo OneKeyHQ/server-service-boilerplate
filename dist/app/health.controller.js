@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const core_1 = require("@midwayjs/core");
 const swagger_1 = require("@midwayjs/swagger");
-const swagger_success_wraper_1 = require("../utils/swagger-success-wraper");
+const swagger_success_wrapper_1 = require("../utils/swagger-success-wrapper");
 const health_dto_1 = require("./health.dto");
 let AppController = class AppController {
     async check() {
@@ -23,7 +23,7 @@ exports.AppController = AppController;
 __decorate([
     (0, core_1.Get)('/health'),
     (0, swagger_1.ApiResponse)({
-        type: (0, swagger_success_wraper_1.SuccessWrapper)(health_dto_1.HealthDTO),
+        type: (0, swagger_success_wrapper_1.SuccessWrapper)(health_dto_1.HealthDTO),
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

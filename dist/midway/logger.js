@@ -14,12 +14,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Configuration = void 0;
-var configuration_1 = require("./configuration");
-Object.defineProperty(exports, "Configuration", { enumerable: true, get: function () { return configuration_1.ServiceBaseConfiguration; } });
-__exportStar(require("./utils/register-model"), exports);
-__exportStar(require("./utils/swagger-success-wrapper"), exports);
-__exportStar(require("./middleware/response-wrapper"), exports);
-__exportStar(require("./filter/error.filter"), exports);
-__exportStar(require("./filter/notfound.filter"), exports);
-__exportStar(require("./app/health.controller"), exports);
+__exportStar(require("@midwayjs/logger"), exports);

@@ -1,7 +1,7 @@
 import { SoftDeleteModel } from 'mongoose-delete';
+import { Inject, Provide } from 'service-base/dist/midway/core';
 
 import { User, UserSchemaName } from './user.entity';
-import { Inject, Provide } from 'service-base/dist/midway/core';
 
 @Provide()
 export class UserService {

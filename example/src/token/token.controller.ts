@@ -1,6 +1,7 @@
+import { Context } from 'service-base/dist/midway/koa';
 import { Controller, Get, Inject } from 'service-base/dist/midway/core';
+
 import { TokenService } from './token.service';
-import { Context } from '@midwayjs/koa';
 
 @Controller('/token')
 export class UserController {

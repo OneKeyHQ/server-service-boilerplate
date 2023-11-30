@@ -42,16 +42,19 @@ const mongoose = __importStar(require("@midwayjs/mongoose"));
 const redis = __importStar(require("@midwayjs/redis"));
 const swagger = __importStar(require("@midwayjs/swagger"));
 const validate = __importStar(require("@midwayjs/validate"));
-const response_wraper_1 = require("./middleware/response-wraper");
+const response_wrapper_1 = require("./middleware/response-wrapper");
 const error_filter_1 = require("./filter/error.filter");
 const notfound_filter_1 = require("./filter/notfound.filter");
 const register_model_1 = require("./utils/register-model");
 let ServiceBaseConfiguration = class ServiceBaseConfiguration {
     async onReady(applicationContext) {
-        this.app.useMiddleware([response_wraper_1.ResponseWraperMiddleware]);
+        this.app.useMiddleware([response_wrapper_1.ResponseWraperMiddleware]);
         this.app.useFilter([error_filter_1.DefaultErrorFilter, notfound_filter_1.NotFoundFilter]);
-        const connection = this.dataSourceManager.getDataSource('default');
-        await (0, register_model_1.registerModel)(applicationContext, connection, this.app.getBaseDir());
+        await (0, register_model_1.registerModel)({
+            container: applicationContext,
+            dataSourceManager: this.dataSourceManager,
+            filePath: this.app.getBaseDir(),
+        });
     }
 };
 exports.ServiceBaseConfiguration = ServiceBaseConfiguration;

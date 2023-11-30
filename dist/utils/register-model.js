@@ -27,19 +27,6 @@ exports.registerModel = void 0;
 const path = __importStar(require("path"));
 const glob_1 = require("glob");
 const mongoose_1 = require("mongoose");
-function findDuplicates(array) {
-    const duplicates = [];
-    const uniqueElements = new Set();
-    for (const element of array) {
-        if (uniqueElements.has(element)) {
-            duplicates.push(element);
-        }
-        else {
-            uniqueElements.add(element);
-        }
-    }
-    return duplicates;
-}
 const isMongooseSchema = (obj) => {
     var _a;
     if (!obj) {
@@ -55,6 +42,7 @@ const isMongooseSchema = (obj) => {
 };
 const getAllEntitySchemas = async (filePath) => {
     const schemas = [];
+    const uniqueSchemaKeys = new Set();
     const files = await (0, glob_1.glob)(path.join(filePath, '**/*.entity.[jt]s'));
     for (const file of files) {
         const data = await Promise.resolve(`${file}`).then(s => __importStar(require(s)));
@@ -62,21 +50,25 @@ const getAllEntitySchemas = async (filePath) => {
             if (!isMongooseSchema(v)) {
                 continue;
             }
+            const connectionName = data['ConnectionName'] || 'default';
+            const key = `${connectionName}__${k}`;
+            if (uniqueSchemaKeys.has(key)) {
+                throw new Error(`Duplicate schema name: ${k}, connectionName: ${connectionName}`);
+            }
+            uniqueSchemaKeys.add(key);
             schemas.push({
                 name: k,
                 schema: v,
+                connectionName,
             });
         }
     }
     return schemas;
 };
-async function registerModel(container, connection, filePath) {
+async function registerModel({ filePath, container, dataSourceManager, }) {
     const schemas = await getAllEntitySchemas(filePath);
-    const duplicates = findDuplicates(schemas.map(item => item.name));
-    if (duplicates.length > 0) {
-        throw new Error(`Duplicate schema name: ${duplicates.join(',')}`);
-    }
-    for (const { name, schema } of schemas) {
+    for (const { name, schema, connectionName } of schemas) {
+        const connection = dataSourceManager.getDataSource(connectionName);
         const model = connection.model(name.replace(/Schema$/g, ''), schema);
         container.registerObject(name, model);
     }

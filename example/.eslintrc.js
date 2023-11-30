@@ -76,7 +76,7 @@ module.exports = {
   env: {
     jest: true,
   },
-  plugins: ['eslint-plugin-import'],
+  plugins: ['eslint-plugin-import', 'eslint-plugin-spellcheck'],
   overrides: [
     {
       files: ['*.ts'],

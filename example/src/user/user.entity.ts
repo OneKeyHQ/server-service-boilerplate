@@ -18,4 +18,7 @@ UserSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedAt: true });
 
 export const UserSchemaName = 'UserSchema';
 
+/** connection 名称, 用于多库下, 默认为 default (不用单独导出) */
+export const ConnectionName = 'default';
+
 export { User, UserSchema };

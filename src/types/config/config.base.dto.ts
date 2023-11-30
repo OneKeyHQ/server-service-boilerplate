@@ -73,3 +73,13 @@ export class AWS {
   @IsString()
   awsRegion!: string;
 }
+
+export class Goplus {
+  @IsString()
+  @IsNotEmpty()
+  appKey!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  appSecret!: string;
+}

@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
-import { AWS, Mongoose, Redis } from './config.base.dto';
+import { AWS, Goplus, Mongoose, Redis } from './config.base.dto';
 
 export class ServerEnv {
   @Type(() => Redis)
@@ -19,4 +19,8 @@ export class ServerEnv {
   NODE_ENV?: string;
 
   cookieSignKey!: string;
+
+  @Type(() => Goplus)
+  @ValidateNested()
+  goplus: Goplus;
 }

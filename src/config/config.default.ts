@@ -4,6 +4,7 @@
 import { join } from 'path';
 
 import { MidwayAppInfo, MidwayConfig } from '@midwayjs/core';
+import * as redisStore from 'cache-manager-ioredis';
 
 import { customConfig } from './config.custom';
 import { NODE_ENV_MAP } from './constant';
@@ -25,6 +26,14 @@ export default (appInfo: MidwayAppInfo): MidwayConfig => {
     },
     redis: {
       client: customConfig.redis,
+    },
+    cache: {
+      store: customConfig.redis.host ? redisStore : 'memory',
+      max: 1000,
+      options: {
+        ...customConfig.redis,
+        keyPrefix: 'cache:discover:',
+      },
     },
     mongoose: {
       dataSource: {

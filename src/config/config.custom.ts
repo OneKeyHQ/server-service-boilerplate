@@ -49,6 +49,10 @@ function getCustomConfig() {
       awsRegion: process.env.AWS_REGION,
     },
     cookieSignKey: process.env.COOKIE_SIGN_KEY,
+    goplus: {
+      appKey: process.env.GOPLUS_APP_KEY,
+      appSecret: process.env.GOPLUS_APP_SECRET,
+    },
   };
 
   const parsed = plainToInstance(ServerEnv, customConfig);

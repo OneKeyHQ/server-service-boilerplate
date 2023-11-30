@@ -1,9 +1,9 @@
 import * as path from 'path';
 
 import { IMidwayContainer } from '@midwayjs/core';
+import { MongooseDataSourceManager } from '@midwayjs/mongoose';
 import { glob } from 'glob';
 import { Schema } from 'mongoose';
-import { MongooseDataSourceManager } from '@midwayjs/mongoose';
 
 const isMongooseSchema = (obj: any): obj is Schema => {
   if (!obj) {
@@ -35,7 +35,9 @@ const getAllEntitySchemas = async (filePath: string) => {
       const connectionName = data['ConnectionName'] || 'default';
       const key = `${connectionName}__${k}`;
       if (uniqueSchemaKeys.has(key)) {
-        throw new Error(`Duplicate schema name: ${k}, connectionName: ${connectionName}`);
+        throw new Error(
+          `Duplicate schema name: ${k}, connectionName: ${connectionName}`
+        );
       }
       uniqueSchemaKeys.add(key);
       schemas.push({

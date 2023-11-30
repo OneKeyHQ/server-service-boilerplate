@@ -6,8 +6,6 @@ import {
   Inject,
   MidwayLoggerService,
 } from '@midwayjs/core';
-import * as DefaultConfig from './config/config.default';
-
 import * as crossDomain from '@midwayjs/cross-domain';
 import * as i18n from '@midwayjs/i18n';
 import * as koa from '@midwayjs/koa';
@@ -15,9 +13,11 @@ import * as mongoose from '@midwayjs/mongoose';
 import * as redis from '@midwayjs/redis';
 import * as swagger from '@midwayjs/swagger';
 import * as validate from '@midwayjs/validate';
-import { ResponseWraperMiddleware } from './middleware/response-wrapper';
+
+import * as DefaultConfig from './config/config.default';
 import { DefaultErrorFilter } from './filter/error.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
+import { ResponseWraperMiddleware } from './middleware/response-wrapper';
 import { registerModel } from './utils/register-model';
 
 @Configuration({

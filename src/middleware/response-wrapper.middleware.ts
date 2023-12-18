@@ -2,7 +2,7 @@ import { IMiddleware, Middleware } from '@midwayjs/core';
 import { Context, NextFunction } from '@midwayjs/koa';
 
 @Middleware()
-export class ResponseWraperMiddleware
+export class ResponseWrapperMiddleware
   implements IMiddleware<Context, NextFunction>
 {
   resolve() {
@@ -14,9 +14,5 @@ export class ResponseWraperMiddleware
         data: result,
       };
     };
-  }
-
-  static getName(): string {
-    return 'report';
   }
 }

@@ -16,7 +16,7 @@ const client = new SecretsManagerClient({
 
 async function run() {
   // load secrets from AWS Secrets Manager
-  // This is not used NODE_ENV_MAP here because the constant file may use customconfig, which will result in an error if the constant is referenced
+  // This is not used NODE_ENV_MAP here because the constant file may use custom config, which will result in an error if the constant is referenced
   if (
     process.env.NODE_ENV === 'test' ||
     process.env.NODE_ENV === 'production'

@@ -1,5 +1,5 @@
 import { hostname } from 'os';
-import { join } from 'path';
+import path from 'path';
 
 import {
   App,
@@ -10,7 +10,6 @@ import {
   MidwayLoggerService,
 } from '@midwayjs/core';
 import * as crossDomain from '@midwayjs/cross-domain';
-import * as grpc from '@midwayjs/grpc';
 import * as i18n from '@midwayjs/i18n';
 import * as koa from '@midwayjs/koa';
 import { IMidwayLogger } from '@midwayjs/logger';
@@ -20,21 +19,19 @@ import * as swagger from '@midwayjs/swagger';
 import * as validate from '@midwayjs/validate';
 import { sync } from 'read-pkg';
 
+import localConfig from './config/config.local';
 import { DefaultErrorFilter } from './filter/default.filter';
-import { NotFoundFilter } from './filter/notfound.filter';
-import { ResponseWraperMiddleware } from './middleware/response-wraper.middleware';
+import { LocaleMiddleware } from './middleware/locale.middleware';
+import { ResponseWrapperMiddleware } from './middleware/response-wrapper.middleware';
 import { CloudwatchTransport } from './utils/logger';
-import { registerModel } from './utils/rigister-model';
-
+import { registerModel } from './utils/register-model';
 @Configuration({
   imports: [
-    // bull,
     koa,
     validate,
-    mongoose,
     i18n,
     redis,
-    grpc,
+    mongoose,
     {
       component: crossDomain,
       enabledEnvironment: ['local'],
@@ -44,7 +41,11 @@ import { registerModel } from './utils/rigister-model';
       enabledEnvironment: ['local'],
     },
   ],
-  importConfigs: [join(__dirname, './config')],
+  importConfigs: [
+    {
+      local: localConfig,
+    },
+  ],
 })
 export class MainConfiguration {
   @App('koa')
@@ -67,8 +68,8 @@ export class MainConfiguration {
   dataSourceManager: mongoose.MongooseDataSourceManager;
 
   async onReady(applicationContext: IMidwayContainer) {
-    this.app.useMiddleware([ResponseWraperMiddleware]);
-    this.app.useFilter([DefaultErrorFilter, NotFoundFilter]);
+    this.app.useMiddleware([LocaleMiddleware, ResponseWrapperMiddleware]);
+    this.app.useFilter([DefaultErrorFilter]);
 
     if (this.envConfig === 'production') {
       const cloudwatchTransport = new CloudwatchTransport({
@@ -91,6 +92,10 @@ export class MainConfiguration {
     }
 
     const connection = this.dataSourceManager.getDataSource('default');
-    await registerModel(applicationContext, connection, __dirname);
+    await registerModel(
+      applicationContext,
+      connection,
+      path.resolve(__dirname, './entity')
+    );
   }
 }

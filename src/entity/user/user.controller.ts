@@ -1,7 +1,7 @@
 import { Body, Controller, Inject, Post } from '@midwayjs/core';
 import { ApiResponse } from '@midwayjs/swagger';
 
-import { SuccessWrapper } from '../utils/success-wraper';
+import { PayloadWrapper } from '../../utils/success-wrapper';
 
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
@@ -15,7 +15,7 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'users module',
-    type: SuccessWrapper(UserDTO),
+    type: PayloadWrapper(UserDTO),
   })
   async createUser(@Body() user: UserDTO) {
     return this.service.createUser(user);

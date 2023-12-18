@@ -18,7 +18,7 @@ export class UserController {
 
   @Get('/:name')
   async get() {
-    const { name } = this.ctx.params;
-    return this.service.getToken(name);
+    // const { name } = this.ctx.params;
+    return this.service.getToken();
   }
 }

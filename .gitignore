@@ -19,6 +19,8 @@ jest-stare/
 .dist/
 _dist/
 .vscode
-.env.**
+.env
 .history
 .yarn/install-state.gz
+
+.yarn/cache

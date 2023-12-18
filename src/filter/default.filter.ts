@@ -1,16 +1,25 @@
 import { Catch, MidwayHttpError } from '@midwayjs/core';
+import * as i18nServiceBasic from '@midwayjs/i18n';
 import { Context } from '@midwayjs/koa';
 
 @Catch()
 export class DefaultErrorFilter {
   async catch(err: MidwayHttpError, ctx: Context) {
-    // @ts-ignore
-    const errcode = err.status || err.response?.status || 400;
-    // 所有的未分类错误会到这里
-    ctx.status = errcode;
+    const status = err.status;
+
+    /** handle HTTP Error */
+    const i18nService = await ctx.requestContext.getAsync(
+      i18nServiceBasic.MidwayI18nService
+    );
+    const statusMessage =
+      i18nService.translate(`error__http_${status}`) ??
+      i18nService.translate('error__common_unknown');
+    /** handle HTTP Error */
+
+    ctx.status = 200;
     return {
-      code: -1,
-      message: err.message,
+      code: status,
+      message: statusMessage,
       data: null,
     };
   }

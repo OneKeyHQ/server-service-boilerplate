@@ -1,22 +1,24 @@
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
-import { AWS, Mongoose, Redis } from './config.base.dto';
+import { AWS, Redis } from './config.base.dto';
+
+export enum RUNTIME_ENV_MAP {
+  LOCAL = 'local',
+  PRODUCTION = 'production',
+  TEST = 'test',
+}
 
 export class ServerEnv {
   @Type(() => Redis)
   @ValidateNested()
   redis: Redis;
 
-  @Type(() => Mongoose)
-  @ValidateNested()
-  mongoose!: Mongoose;
-
   @Type(() => AWS)
   @ValidateNested()
   aws!: AWS;
 
-  NODE_ENV?: string;
+  NODE_ENV: RUNTIME_ENV_MAP;
 
-  cookieSignKey!: string;
+  cookieSignKey: string;
 }

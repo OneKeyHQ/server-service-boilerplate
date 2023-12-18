@@ -1,0 +1,22 @@
+{
+    "error__common_unknown": "未知错误",
+    "error__http_400": "由于语法错误，无法满足请求",
+    "error__http_401": "身份验证不合法，请重新进行验证",
+    "error__http_404": "请求的资源不存在",
+    "error__http_403": "服务器拒绝执行当前请求",
+    "error__http_406": "请求信息与服务端响应类型不匹配",
+    "error__http_408": "服务器等待请求超时",
+    "error__http_409": "由于语法错误，无法满足请求",
+    "error__http_410": "请求的页面不再可用",
+    "error__http_413": "请求信息内容过大，服务端无法处理",
+    "error__http_415": "不支持该媒体类型",
+    "error__http_500": "内部服务器错误",
+    "error__http_501": "服务器无法识别请求方法",
+    "error__http_502": "服务器从上游服务器收到无效答案",
+    "error__http_503": "当前服务器不可用",
+    "error__http_504": "服务器没有及时从上游服务器得到答复",
+    "error__service_wallet_default": "钱包服务异常",
+    "error__service_swap_default": "兑换服务异常",
+    "error__service_utility_default": "通用服务异常",
+    "error__service_onchain_default": "链上基础服务异常"
+}

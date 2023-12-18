@@ -14,12 +14,13 @@ export class DefaultErrorFilter {
     const statusMessage =
       i18nService.translate(`error__http_${status}`) ??
       i18nService.translate('error__common_unknown');
+    const shownMessage = `${status}: ${statusMessage}`;
     /** handle HTTP Error */
 
     ctx.status = 200;
     return {
       code: status,
-      message: statusMessage,
+      message: shownMessage,
       data: null,
     };
   }

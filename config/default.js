@@ -12,6 +12,7 @@ module.exports = {
     projects: [
       {
         id: process.env.LOKALISE_PROJECT_ID,
+        all_platforms: true,
       },
     ],
   },

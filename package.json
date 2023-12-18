@@ -61,7 +61,7 @@
     "ci": "npm run cov",
     "build": "midway-bin build -c",
     "prepare-env": "yarn dlx ts-node ./src/scripts/prepare-env.ts",
-    "fetch:locale": "npx lokalise-client fetch"
+    "fetch:locale": "rimraf src/locales/*.json & npx lokalise-client fetch"
   },
   "midway-bin-clean": [
     ".vscode/.tsbuildinfo",

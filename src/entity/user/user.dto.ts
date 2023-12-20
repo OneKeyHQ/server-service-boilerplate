@@ -16,4 +16,16 @@ export class UserDTO {
   })
   @Rule(RuleType.string().required())
   email: string;
+
+  @ApiProperty({
+    description: 'The userId for the user',
+    example: '',
+  })
+  @Rule(RuleType.string())
+  userId: string;
+}
+
+export class UserQueryDTO {
+  @Rule(RuleType.string())
+  email: string;
 }

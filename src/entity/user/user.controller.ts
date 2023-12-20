@@ -1,9 +1,17 @@
-import { Body, Controller, Inject, Post } from '@midwayjs/core';
-import { ApiResponse } from '@midwayjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Query,
+} from '@midwayjs/core';
+import { pick } from 'lodash';
 
-import { PayloadWrapper } from '../../utils/success-wrapper';
+import { PaginationDTO } from '../common/common.dto';
 
-import { UserDTO } from './user.dto';
+import { UserDTO, UserQueryDTO } from './user.dto';
 import { UserService } from './user.service';
 
 @Controller('/user')
@@ -11,13 +19,33 @@ export class UserController {
   @Inject()
   service: UserService;
 
+  @Get('/')
+  async findUsers(@Query() query: PaginationDTO & UserQueryDTO) {
+    const pagination = pick(query, ['cursor', 'limit']);
+    const queryInfo = pick(query, ['email']);
+    return this.service.findUsers(queryInfo, pagination);
+  }
+
+  @Get('/:userId')
+  async getUserDetail(@Param('userId') userId: UserDTO['userId']) {
+    return this.service.getUserDetail(userId);
+  }
+
   @Post('/')
-  @ApiResponse({
-    status: 200,
-    description: 'users module',
-    type: PayloadWrapper(UserDTO),
-  })
   async createUser(@Body() user: UserDTO) {
     return this.service.createUser(user);
+  }
+
+  @Post('/:userId')
+  async updateUser(
+    @Body() user: UserDTO,
+    @Param('userId') userId: UserDTO['userId']
+  ) {
+    return this.service.updateUser(userId, user);
+  }
+
+  @Post('/delete')
+  async deleteUser(@Body() userId: UserDTO['userId']) {
+    return this.service.deleteUser(userId);
   }
 }

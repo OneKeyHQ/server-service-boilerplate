@@ -13,7 +13,7 @@
     "stripInternal": true,
     "skipLibCheck": true,
     "pretty": true,
-    "declaration": true,
+    "declaration": false,
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["./typings", "./node_modules/@types"],
     "outDir": "dist"

@@ -18,13 +18,13 @@ async function run() {
   // load secrets from AWS Secrets Manager
   // This is not used NODE_ENV_MAP here because the constant file may use custom config, which will result in an error if the constant is referenced
   if (
-    process.env.NODE_ENV === 'test' ||
+    process.env.NODE_ENV === 'sandbox' ||
     process.env.NODE_ENV === 'production'
   ) {
     let retry = 1;
     let awsSecretsString = '';
     const maxRetry = 5;
-    const SECRET_NAME = `onekey_dashboard_server_${process.env.NODE_ENV}_env`;
+    const SECRET_NAME = `onekey_lightning_network_server_${process.env.NODE_ENV}_env`;
 
     const getAwsSecretString = (data: GetSecretValueCommandOutput) => {
       if (data.SecretString) {

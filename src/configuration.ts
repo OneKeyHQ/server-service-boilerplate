@@ -1,6 +1,7 @@
 import { hostname } from 'os';
 import path from 'path';
 
+import * as cache from '@midwayjs/cache';
 import {
   App,
   Config,
@@ -31,6 +32,7 @@ import { registerModel } from './utils/register-model';
     validate,
     i18n,
     redis,
+    cache,
     mongoose,
     {
       component: crossDomain,

@@ -1,7 +1,7 @@
 {
-  "name": "@onekeybe/boilerplate",
+  "name": "@onekeybe/lightning-network",
   "version": "1.0.0",
-  "description": "boilerplate",
+  "description": "Lightning Network Service",
   "private": true,
   "dependencies": {
     "@aws-sdk/client-cloudwatch-logs": "^3.454.0",
@@ -9,6 +9,7 @@
     "@faker-js/faker": "^8.3.1",
     "@midwayjs/bootstrap": "^3.12.5",
     "@midwayjs/bull": "3",
+    "@midwayjs/cache": "^3.13.8",
     "@midwayjs/core": "^3.13.0",
     "@midwayjs/cross-domain": "^3.12.10",
     "@midwayjs/decorator": "^3.12.3",
@@ -20,6 +21,7 @@
     "@midwayjs/swagger": "3",
     "@midwayjs/validate": "3",
     "@typegoose/typegoose": "^11.7.1",
+    "cache-manager-ioredis": "^2.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
@@ -33,6 +35,7 @@
   "devDependencies": {
     "@midwayjs/cli": "^2.1.1",
     "@midwayjs/mock": "^3.12.10",
+    "@types/cache-manager-ioredis": "^2",
     "@types/jest": "^29.5.9",
     "@types/koa": "^2.13.12",
     "@types/lodash": "^4.14.202",

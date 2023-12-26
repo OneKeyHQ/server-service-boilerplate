@@ -1454,6 +1454,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@midwayjs/cache@npm:^3.13.8":
+  version: 3.13.8
+  resolution: "@midwayjs/cache@npm:3.13.8"
+  dependencies:
+    "@types/cache-manager": "npm:3.4.3"
+    cache-manager: "npm:3.6.3"
+  checksum: be0b055f4e993bbc6547cde66f477f0c17edcbdda833751f1bb14ad751c5ca7285f9eb358db59b8396c8365573dce4d65e240c9dd22c4b9849a6530a71ae1ba7
+  languageName: node
+  linkType: hard
+
 "@midwayjs/cli-plugin-build@npm:^2.1.0":
   version: 2.1.0
   resolution: "@midwayjs/cli-plugin-build@npm:2.1.0"
@@ -1874,15 +1884,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onekeybe/boilerplate@workspace:.":
+"@onekeybe/lightning-network@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@onekeybe/boilerplate@workspace:."
+  resolution: "@onekeybe/lightning-network@workspace:."
   dependencies:
     "@aws-sdk/client-cloudwatch-logs": "npm:^3.454.0"
     "@aws-sdk/client-secrets-manager": "npm:^3.454.0"
     "@faker-js/faker": "npm:^8.3.1"
     "@midwayjs/bootstrap": "npm:^3.12.5"
     "@midwayjs/bull": "npm:3"
+    "@midwayjs/cache": "npm:^3.13.8"
     "@midwayjs/cli": "npm:^2.1.1"
     "@midwayjs/core": "npm:^3.13.0"
     "@midwayjs/cross-domain": "npm:^3.12.10"
@@ -1896,11 +1907,13 @@ __metadata:
     "@midwayjs/swagger": "npm:3"
     "@midwayjs/validate": "npm:3"
     "@typegoose/typegoose": "npm:^11.7.1"
+    "@types/cache-manager-ioredis": "npm:^2"
     "@types/jest": "npm:^29.5.9"
     "@types/koa": "npm:^2.13.12"
     "@types/lodash": "npm:^4.14.202"
     "@types/mongoose-delete": "npm:^1.0.3"
     "@types/node": "npm:14"
+    cache-manager-ioredis: "npm:^2.1.0"
     class-transformer: "npm:^0.5.1"
     class-validator: "npm:^0.14.0"
     cross-env: "npm:^7.0.3"
@@ -2550,6 +2563,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cache-manager-ioredis@npm:^2":
+  version: 2.0.6
+  resolution: "@types/cache-manager-ioredis@npm:2.0.6"
+  dependencies:
+    "@types/cache-manager": "npm:*"
+    "@types/ioredis": "npm:^4.28.10"
+  checksum: 36a3561eb2e304470782022fc50807bb8a3ac07d0884aea30524192f2b8a095bb7f8ba37b671c295be6ce1c08f46bcc2c04f62ae9b2e73bc907edd6554ac448a
+  languageName: node
+  linkType: hard
+
+"@types/cache-manager@npm:*":
+  version: 4.0.6
+  resolution: "@types/cache-manager@npm:4.0.6"
+  checksum: 3cf78d7ec98a03f651ceb31cc7fbd56f25476c90892d3b19a60c645e8fdd6fe7df99b14afde3fcaec407ab8bb5c8e77332dded77b335cad0fc4b06fbf2df5d62
+  languageName: node
+  linkType: hard
+
+"@types/cache-manager@npm:3.4.3":
+  version: 3.4.3
+  resolution: "@types/cache-manager@npm:3.4.3"
+  checksum: 653330e336ab358ef7888d9f58532caf2a42b94a6c90fe8de711d753a086aefbbcda71264cbc15d4e8675852115b0313dd9901ef6c18437fe738cfa777c57a1c
+  languageName: node
+  linkType: hard
+
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.3
   resolution: "@types/cacheable-request@npm:6.0.3"
@@ -2658,6 +2695,15 @@ __metadata:
   version: 2.0.4
   resolution: "@types/http-errors@npm:2.0.4"
   checksum: 494670a57ad4062fee6c575047ad5782506dd35a6b9ed3894cea65830a94367bd84ba302eb3dde331871f6d70ca287bfedb1b2cf658e6132cd2cbd427ab56836
+  languageName: node
+  linkType: hard
+
+"@types/ioredis@npm:^4.28.10":
+  version: 4.28.10
+  resolution: "@types/ioredis@npm:4.28.10"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: ff680fef6750721c465ee9d6060d3229e49e5b217d68503c4972c4b869b8f84b91cbd9b7d5195a40fb0bff6ab9a4f5e24a2cc17a368ddb0bfe2dfd4eb5fc1872
   languageName: node
   linkType: hard
 
@@ -3393,6 +3439,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"async@npm:3.2.3":
+  version: 3.2.3
+  resolution: "async@npm:3.2.3"
+  checksum: 109780c846f05109dde14412d916ae4ed6daf6f9aad0c4aa1dcf0d4da775a3a9e35e0e06e4e06ad9fed66f99ca15549da16f2f243c56103b346e9d3bcd9c943f
+  languageName: node
+  linkType: hard
+
 "async@npm:^3.1.0, async@npm:^3.2.3":
   version: 3.2.5
   resolution: "async@npm:3.2.5"
@@ -3708,6 +3761,26 @@ __metadata:
     mime-types: "npm:^2.1.18"
     ylru: "npm:^1.2.0"
   checksum: 59b50e29e64a24bb52a16e5d35b69ad27ef14313701acc5e462b0aeebf2f09ff87fb6538eb0c0f0de4de05c8a1eecaef47f455f5b4928079e68f607f816a0843
+  languageName: node
+  linkType: hard
+
+"cache-manager-ioredis@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "cache-manager-ioredis@npm:2.1.0"
+  dependencies:
+    ioredis: "npm:^4.14.1"
+  checksum: 219fad7a5b894a34f26936b3ef41de9328bde5edcc0fca29a2aecfcc2a330836455e80b097b3ac0dd22091efe15ddd45d615e10f71e8c118876c138d7aac67f2
+  languageName: node
+  linkType: hard
+
+"cache-manager@npm:3.6.3":
+  version: 3.6.3
+  resolution: "cache-manager@npm:3.6.3"
+  dependencies:
+    async: "npm:3.2.3"
+    lodash.clonedeep: "npm:^4.5.0"
+    lru-cache: "npm:6.0.0"
+  checksum: 83e45031e964b94dab47a7af0adbab1c21a3a0f05efe1fc964207d429eb2cf5c77849fc61e04e5eaa8a29ae147ebc031199371d1a898b1dc28b2149648a03ddd
   languageName: node
   linkType: hard
 
@@ -4248,7 +4321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:4.x, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
+"debug@npm:4, debug@npm:4.x, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -4454,6 +4527,13 @@ __metadata:
   version: 1.0.0
   resolution: "delegates@npm:1.0.0"
   checksum: ba05874b91148e1db4bf254750c042bf2215febd23a6d3cda2e64896aef79745fbd4b9996488bd3cafb39ce19dbce0fd6e3b6665275638befffe1c9b312b91b5
+  languageName: node
+  linkType: hard
+
+"denque@npm:^1.1.0":
+  version: 1.5.1
+  resolution: "denque@npm:1.5.1"
+  checksum: 9e6fc1a63e1c9ded38325290302fef40e5ad28471ad8c66d68eaea623ef847bd25fc75a7c3f47396206dc967922615999066470a364e1786f2758d61337872b7
   languageName: node
   linkType: hard
 
@@ -6074,6 +6154,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ioredis@npm:^4.14.1":
+  version: 4.28.5
+  resolution: "ioredis@npm:4.28.5"
+  dependencies:
+    cluster-key-slot: "npm:^1.1.0"
+    debug: "npm:^4.3.1"
+    denque: "npm:^1.1.0"
+    lodash.defaults: "npm:^4.2.0"
+    lodash.flatten: "npm:^4.4.0"
+    lodash.isarguments: "npm:^3.1.0"
+    p-map: "npm:^2.1.0"
+    redis-commands: "npm:1.7.0"
+    redis-errors: "npm:^1.2.0"
+    redis-parser: "npm:^3.0.0"
+    standard-as-callback: "npm:^2.1.0"
+  checksum: 6fd12957d2906f83d8aa662ba78d084df16dc7c1a0e6e18c512302ac94339dcd5936d2e7cd6f89e9e7b511e3cf96617ca2fdea63aa4679bfdf48aa2be441ad76
+  languageName: node
+  linkType: hard
+
 "ip@npm:^2.0.0":
   version: 2.0.0
   resolution: "ip@npm:2.0.0"
@@ -7236,6 +7335,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.clonedeep@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.clonedeep@npm:4.5.0"
+  checksum: 2caf0e4808f319d761d2939ee0642fa6867a4bbf2cfce43276698828380756b99d4c4fa226d881655e6ac298dd453fe12a5ec8ba49861777759494c534936985
+  languageName: node
+  linkType: hard
+
 "lodash.defaults@npm:^4.2.0":
   version: 4.2.0
   resolution: "lodash.defaults@npm:4.2.0"
@@ -7247,6 +7353,13 @@ __metadata:
   version: 4.6.0
   resolution: "lodash.find@npm:4.6.0"
   checksum: 0238f3abc0b87aa441820ab0ab31a81156e1809a66285f454fbea18cbdf4d16572d504dd9e96c22df8a36b81d0272bca9205d09d217d61f9b53fa3358023377f
+  languageName: node
+  linkType: hard
+
+"lodash.flatten@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "lodash.flatten@npm:4.4.0"
+  checksum: 97e8f0d6b61fe4723c02ad0c6e67e51784c4a2c48f56ef283483e556ad01594cf9cec9c773e177bbbdbdb5d19e99b09d2487cb6b6e5dc405c2693e93b125bd3a
   languageName: node
   linkType: hard
 
@@ -7351,6 +7464,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lru-cache@npm:6.0.0, lru-cache@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "lru-cache@npm:6.0.0"
+  dependencies:
+    yallist: "npm:^4.0.0"
+  checksum: cb53e582785c48187d7a188d3379c181b5ca2a9c78d2bce3e7dee36f32761d1c42983da3fe12b55cb74e1779fa94cdc2e5367c028a9b35317184ede0c07a30a9
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^10.0.1, lru-cache@npm:^9.1.1 || ^10.0.0":
   version: 10.1.0
   resolution: "lru-cache@npm:10.1.0"
@@ -7364,15 +7486,6 @@ __metadata:
   dependencies:
     yallist: "npm:^3.0.2"
   checksum: 89b2ef2ef45f543011e38737b8a8622a2f8998cddf0e5437174ef8f1f70a8b9d14a918ab3e232cb3ba343b7abddffa667f0b59075b2b80e6b4d63c3de6127482
-  languageName: node
-  linkType: hard
-
-"lru-cache@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "lru-cache@npm:6.0.0"
-  dependencies:
-    yallist: "npm:^4.0.0"
-  checksum: cb53e582785c48187d7a188d3379c181b5ca2a9c78d2bce3e7dee36f32761d1c42983da3fe12b55cb74e1779fa94cdc2e5367c028a9b35317184ede0c07a30a9
   languageName: node
   linkType: hard
 
@@ -8263,6 +8376,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-map@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "p-map@npm:2.1.0"
+  checksum: 735dae87badd4737a2dd582b6d8f93e49a1b79eabbc9815a4d63a528d5e3523e978e127a21d784cccb637010e32103a40d2aaa3ab23ae60250b1a820ca752043
+  languageName: node
+  linkType: hard
+
 "p-map@npm:^4.0.0":
   version: 4.0.0
   resolution: "p-map@npm:4.0.0"
@@ -8692,6 +8812,13 @@ __metadata:
     indent-string: "npm:^4.0.0"
     strip-indent: "npm:^3.0.0"
   checksum: d64a6b5c0b50eb3ddce3ab770f866658a2b9998c678f797919ceb1b586bab9259b311407280bd80b804e2a7c7539b19238ae6a2a20c843f1a7fcff21d48c2eae
+  languageName: node
+  linkType: hard
+
+"redis-commands@npm:1.7.0":
+  version: 1.7.0
+  resolution: "redis-commands@npm:1.7.0"
+  checksum: c78b46d8d6e811f422961878538c57048a451ab56760d3f1657a7c8f29aaae42cc23890f75655556a59ec67611022e18cb443d2976e6c55036934bfe783aa60e
   languageName: node
   linkType: hard
 

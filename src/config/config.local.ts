@@ -5,7 +5,7 @@ import { MidwayConfig } from '@midwayjs/core';
 import * as redisStore from 'cache-manager-ioredis';
 import { merge } from 'lodash';
 
-import { baseConfig } from './base';
+import { baseConfig, getRedisConfig } from './base';
 
 export default (): MidwayConfig => {
   return merge(baseConfig, {
@@ -24,6 +24,13 @@ export default (): MidwayConfig => {
       options: {
         keyPrefix: 'cache:lightning:',
       },
+    },
+    bull: {
+      defaultQueuOptions: {
+        redis: getRedisConfig(),
+      },
+      defaultConcurrency: 1,
+      clearRepeatJobWhenStart: true,
     },
   }) as MidwayConfig;
 };

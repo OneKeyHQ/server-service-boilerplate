@@ -1,7 +1,9 @@
+import { BullQueue, InjectQueue } from '@midwayjs/bull';
 import { Inject, Provide } from '@midwayjs/core';
 import { pick } from 'lodash';
 import { SoftDeleteModel } from 'mongoose-delete';
 
+import { EBullQueueNames } from '../../config/queue.config';
 import { PaginationDTO } from '../common/common.dto';
 
 import { UserDTO, UserQueryDTO } from './user.dto';
@@ -12,8 +14,14 @@ export class UserService {
   @Inject(UserSchemaName)
   userModel: SoftDeleteModel<User>;
 
+  @InjectQueue(EBullQueueNames.lightningNetwork)
+  lightningQueue: BullQueue;
+
   async createUser(user: UserDTO) {
     const userRecord = await this.userModel.create(user);
+    await this.lightningQueue.runJob({
+      foo: 'Bar',
+    });
     return pick(userRecord, ['userId', 'name', 'email']);
   }
 

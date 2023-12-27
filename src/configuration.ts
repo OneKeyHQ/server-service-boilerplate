@@ -1,6 +1,7 @@
 import { hostname } from 'os';
 import path from 'path';
 
+import * as bull from '@midwayjs/bull';
 import * as cache from '@midwayjs/cache';
 import {
   App,
@@ -32,8 +33,9 @@ import { registerModel } from './utils/register-model';
     validate,
     i18n,
     redis,
-    cache,
     mongoose,
+    cache,
+    bull,
     {
       component: crossDomain,
       enabledEnvironment: ['local'],

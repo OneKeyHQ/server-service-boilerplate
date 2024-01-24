@@ -2,6 +2,7 @@ import { Inject, Provide } from '@midwayjs/core';
 import { pick } from 'lodash';
 import { SoftDeleteModel } from 'mongoose-delete';
 
+import { UserMOdelProjection } from '../../constant';
 import { PaginationDTO } from '../common/common.dto';
 
 import { UserDTO, UserQueryDTO } from './user.dto';
@@ -14,7 +15,7 @@ export class UserService {
 
   async createUser(user: UserDTO) {
     const userRecord = await this.userModel.create(user);
-    return pick(userRecord, ['userId', 'name', 'email']);
+    return pick(userRecord, UserMOdelProjection);
   }
 
   async deleteUser(userId: UserDTO['userId']) {
@@ -34,7 +35,7 @@ export class UserService {
             _id: { $lt: pagination.cursor },
           }
         : {},
-      ['userId', 'name', 'email', 'id'],
+      UserMOdelProjection,
       {
         limit,
         sort: { createdAt: -1 },
@@ -58,7 +59,7 @@ export class UserService {
       {
         userId,
       },
-      ['userId', 'name', 'email']
+      UserMOdelProjection
     );
 
     return userRecord;
@@ -69,7 +70,10 @@ export class UserService {
       {
         userId,
       },
-      user
+      user,
+      {
+        runValidators: true,
+      }
     );
     return true;
   }

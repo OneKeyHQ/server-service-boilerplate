@@ -24,7 +24,7 @@ async function run() {
     let retry = 1;
     let awsSecretsString = '';
     const maxRetry = 5;
-    const SECRET_NAME = `onekey_dashboard_server_${process.env.NODE_ENV}_env`;
+    const SECRET_NAME = `onekey_boilerplate_server_${process.env.NODE_ENV}_env`;
 
     const getAwsSecretString = (data: GetSecretValueCommandOutput) => {
       if (data.SecretString) {
@@ -66,7 +66,7 @@ async function run() {
       }
     }
 
-    fs.writeFileSync('.env.default', envString, 'utf8');
+    fs.writeFileSync('.env', envString, 'utf8');
   }
 }
 

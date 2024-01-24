@@ -22,9 +22,7 @@ RUN apk add --no-cache tzdata && rm -rf /var/cache/apk/*
 
 COPY --from=build /app /app
 
-# 防止 test 环境加载配置出错
-RUN rm ./dist/config/config.unittest.*\
-  && yarn run prepare-env\
+RUN yarn run prepare-env\
   && yarn workspaces focus --production\
   && yarn cache clean
 

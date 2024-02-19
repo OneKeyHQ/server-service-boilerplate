@@ -1,6 +1,7 @@
 import { hostname } from 'os';
 import path, { join } from 'path';
 
+import * as axios from '@midwayjs/axios';
 import * as bull from '@midwayjs/bull';
 import * as cache from '@midwayjs/cache';
 import {
@@ -13,9 +14,11 @@ import {
 } from '@midwayjs/core';
 import * as crossDomain from '@midwayjs/cross-domain';
 import * as i18n from '@midwayjs/i18n';
+import * as jwt from '@midwayjs/jwt';
 import * as koa from '@midwayjs/koa';
 import { IMidwayLogger } from '@midwayjs/logger';
 import * as mongoose from '@midwayjs/mongoose';
+import * as orm from '@midwayjs/orm';
 import * as redis from '@midwayjs/redis';
 import * as validate from '@midwayjs/validate';
 import { sync } from 'read-pkg';
@@ -27,6 +30,7 @@ import { CloudwatchTransport } from './utils/logger';
 import { registerModel } from './utils/register-model';
 @Configuration({
   imports: [
+    axios,
     koa,
     validate,
     i18n,
@@ -34,6 +38,8 @@ import { registerModel } from './utils/register-model';
     mongoose,
     cache,
     bull,
+    jwt,
+    orm,
     {
       component: crossDomain,
       enabledEnvironment: ['local'],

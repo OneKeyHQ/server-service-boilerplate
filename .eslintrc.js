@@ -19,7 +19,7 @@ const jsRules = {
   'max-classes-per-file': 'off',
   camelcase: 'off',
   'no-continue': 'off',
-  'no-console': 'warn',
+  'no-console': 'off',
 };
 const tsRules = {
   '@typescript-eslint/default-param-last': 'off',

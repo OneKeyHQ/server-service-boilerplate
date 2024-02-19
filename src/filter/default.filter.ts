@@ -18,8 +18,14 @@ export class DefaultErrorFilter {
     const statusMessage =
       i18nService.translate(`error__http_${status}`) ??
       i18nService.translate('error__common_unknown');
-    const shownMessage = `${status}: ${statusMessage}`;
+    let shownMessage = `${status}: ${statusMessage}`;
     /** handle HTTP Error */
+
+    /** handle Business Error */
+    if (status > 30000 && status < 40000) {
+      shownMessage = `${i18nService.translate(err.message) ?? err.message}`;
+    }
+    /** handle Business Error */
 
     if (this.NODE_ENV === 'local') {
       console.log(err);

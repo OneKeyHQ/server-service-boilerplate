@@ -1,5 +1,5 @@
 import { hostname } from 'os';
-import path from 'path';
+import path, { join } from 'path';
 
 import * as bull from '@midwayjs/bull';
 import * as cache from '@midwayjs/cache';
@@ -17,11 +17,9 @@ import * as koa from '@midwayjs/koa';
 import { IMidwayLogger } from '@midwayjs/logger';
 import * as mongoose from '@midwayjs/mongoose';
 import * as redis from '@midwayjs/redis';
-import * as swagger from '@midwayjs/swagger';
 import * as validate from '@midwayjs/validate';
 import { sync } from 'read-pkg';
 
-import localConfig from './config/config.local';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { LocaleMiddleware } from './middleware/locale.middleware';
 import { ResponseWrapperMiddleware } from './middleware/response-wrapper.middleware';
@@ -40,16 +38,8 @@ import { registerModel } from './utils/register-model';
       component: crossDomain,
       enabledEnvironment: ['local'],
     },
-    {
-      component: swagger,
-      enabledEnvironment: ['local'],
-    },
   ],
-  importConfigs: [
-    {
-      local: localConfig,
-    },
-  ],
+  importConfigs: [join(__dirname, './config')],
 })
 export class MainConfiguration {
   @App('koa')

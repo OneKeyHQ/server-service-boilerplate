@@ -5,6 +5,11 @@ import MongooseDelete, { SoftDeleteDocument } from 'mongoose-delete';
 
 import normalize from '../../utils/mongoose-plugins/normalize';
 
+/**
+ * @name string
+ * @email string
+ * @userId string
+ */
 interface User extends SoftDeleteDocument {
   name?: string;
   email: string;

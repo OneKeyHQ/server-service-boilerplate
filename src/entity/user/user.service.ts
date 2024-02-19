@@ -4,6 +4,7 @@ import { pick } from 'lodash';
 import { SoftDeleteModel } from 'mongoose-delete';
 
 import { EBullQueueNames } from '../../config/queue.config';
+import { UserModelProjection } from '../../constant';
 import { PaginationDTO } from '../common/common.dto';
 
 import { UserDTO, UserQueryDTO } from './user.dto';
@@ -22,7 +23,7 @@ export class UserService {
     await this.lightningQueue.runJob({
       foo: 'Bar',
     });
-    return pick(userRecord, ['userId', 'name', 'email']);
+    return pick(userRecord, UserModelProjection);
   }
 
   async deleteUser(userId: UserDTO['userId']) {
@@ -42,7 +43,7 @@ export class UserService {
             _id: { $lt: pagination.cursor },
           }
         : {},
-      ['userId', 'name', 'email', 'id'],
+      UserModelProjection,
       {
         limit,
         sort: { createdAt: -1 },
@@ -66,7 +67,7 @@ export class UserService {
       {
         userId,
       },
-      ['userId', 'name', 'email']
+      UserModelProjection
     );
 
     return userRecord;
@@ -77,7 +78,10 @@ export class UserService {
       {
         userId,
       },
-      user
+      user,
+      {
+        runValidators: true,
+      }
     );
     return true;
   }

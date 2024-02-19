@@ -66,7 +66,7 @@ async function run() {
       }
     }
 
-    fs.writeFileSync('.env.default', envString, 'utf8');
+    fs.writeFileSync('.env', envString, 'utf8');
   }
 }
 

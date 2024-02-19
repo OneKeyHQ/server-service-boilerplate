@@ -9,8 +9,6 @@ import {
 } from '@midwayjs/core';
 import { pick } from 'lodash';
 
-import { PaginationDTO } from '../common/common.dto';
-
 import { UserDTO, UserQueryDTO } from './user.dto';
 import { UserService } from './user.service';
 
@@ -20,7 +18,7 @@ export class UserController {
   service: UserService;
 
   @Get('/')
-  async findUsers(@Query() query: PaginationDTO & UserQueryDTO) {
+  async findUsers(@Query() query: UserQueryDTO) {
     const pagination = pick(query, ['cursor', 'limit']);
     const queryInfo = pick(query, ['email']);
     return this.service.findUsers(queryInfo, pagination);

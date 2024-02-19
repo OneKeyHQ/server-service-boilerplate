@@ -9,9 +9,7 @@ import { EBullQueueNames, queueConfig } from '../config/queue.config';
   queueConfig[EBullQueueNames.lightningNetwork].queueOptions
 )
 export class LightningPaymentProcessor implements IProcessor {
-  async execute(params: { foo: string }) {
-    console.log(
-      `test processor execute at ${new Date().toLocaleString()}, params: ${params}`
-    );
+  async execute() {
+    // TODO: do something
   }
 }

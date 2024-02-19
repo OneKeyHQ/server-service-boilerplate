@@ -5,6 +5,8 @@ import {
   IsObject,
   IsOptional,
   IsString,
+  IsUrl,
+  MinLength,
   ValidateNested,
 } from 'class-validator';
 
@@ -72,4 +74,81 @@ export class AWS {
 
   @IsString()
   awsRegion!: string;
+}
+
+export class Lokalise {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(20)
+  projectId!: string;
+
+  @IsString()
+  token?: string;
+}
+
+export class LndRpc {
+  @IsString()
+  @IsNotEmpty()
+  @IsUrl()
+  rpcHost!: string;
+
+  @IsString()
+  grpcHost!: string;
+
+  @IsString()
+  websocketHost!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(30)
+  grpcMacaroon!: string;
+
+  @IsString()
+  grpcCert!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  withdrawAddress!: string;
+}
+
+export class Lndhub {
+  @IsString()
+  @IsNotEmpty()
+  baseUrl!: string;
+
+  @IsNumber()
+  jwtAccessExpiry!: number;
+
+  @IsNumber()
+  jwtRefreshExpiry!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(30)
+  adminToken!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(30)
+  identityPubKey!: string;
+
+  @IsNumber()
+  @IsOptional()
+  maxReceiveAmount?: number;
+
+  @IsNumber()
+  @IsOptional()
+  maxSendAmount?: number;
+}
+
+export class Postgres {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(10)
+  url!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(10)
+  testnetUrl!: string;
 }

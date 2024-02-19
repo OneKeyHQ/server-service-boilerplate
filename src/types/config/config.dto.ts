@@ -1,7 +1,19 @@
 import { Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  MinLength,
+  ValidateNested,
+} from 'class-validator';
 
-import { AWS, Redis } from './config.base.dto';
+import {
+  AWS,
+  LndRpc,
+  Lndhub,
+  Lokalise,
+  Postgres,
+  Redis,
+} from './config.base.dto';
 
 export enum RUNTIME_ENV_MAP {
   LOCAL = 'local',
@@ -21,4 +33,37 @@ export class ServerEnv {
   NODE_ENV: RUNTIME_ENV_MAP;
 
   cookieSignKey: string;
+
+  @Type(() => Lokalise)
+  @ValidateNested()
+  lokalise!: Lokalise;
+
+  @Type(() => LndRpc)
+  @ValidateNested()
+  lndRpc!: LndRpc;
+
+  @Type(() => LndRpc)
+  @ValidateNested()
+  lndRpcTestnet!: LndRpc;
+
+  @Type(() => Lndhub)
+  @ValidateNested()
+  lndhub!: Lndhub;
+
+  @Type(() => Lndhub)
+  @ValidateNested()
+  lndhubTestnet!: Lndhub;
+
+  @Type(() => Postgres)
+  @ValidateNested()
+  postgres: Postgres;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(5)
+  lndhubJwtSecret!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lnurlEndpoint: string;
 }

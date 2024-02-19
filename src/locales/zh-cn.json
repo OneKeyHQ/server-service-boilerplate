@@ -15,6 +15,7 @@
   "error__http_502": "服务器从上游服务器收到无效应答",
   "error__http_503": "当前服务器不可用",
   "error__http_504": "服务器没有及时从上游服务器得到答复",
+  "error__service_ln_failed_to_create_lightning_network_account": "Failed to create Lightning Network account",
   "error__service_ln_invalid_signature": "无效签名",
   "error__service_onchain_default": "链上基础服务异常",
   "error__service_swap_0X_address_not_supported": "地址不支持",

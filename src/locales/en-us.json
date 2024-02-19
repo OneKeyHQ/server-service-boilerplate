@@ -15,6 +15,7 @@
   "error__http_502": "the server received an invalid answer from the upstream server",
   "error__http_503": "the server is not available now",
   "error__http_504": "the server didn't get answer on time from the upstream server",
+  "error__service_ln_failed_to_create_lightning_network_account": "Failed to create Lightning Network account",
   "error__service_ln_invalid_signature": "Invalid signature",
   "error__service_onchain_default": "onchain service abnormal",
   "error__service_swap_0X_address_not_supported": "address not supported",

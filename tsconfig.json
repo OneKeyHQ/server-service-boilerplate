@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es2022",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": true,
     "inlineSourceMap": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "stripInternal": true,
     "skipLibCheck": true,
     "pretty": true,

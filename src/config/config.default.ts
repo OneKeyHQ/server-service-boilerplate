@@ -2,13 +2,7 @@
 
 import localeConfig from '../locales';
 
-const getRedisConfig = (db = 0, options: Record<string, unknown> = {}) => ({
-  host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT, 10),
-  password: process.env.REDIS_PWD,
-  db,
-  ...options,
-});
+import type { MidwayConfig } from '@midwayjs/core';
 
 /*
   default中的配置项，会被config.xxxx.ts中相同配置项覆盖
@@ -24,7 +18,12 @@ export default {
       enableConsole: false,
     },
   },
-  redis: getRedisConfig(parseInt(process.env.REDIS_DB, 10)),
+  redis: {
+    host: process.env.REDIS_HOST,
+    port: parseInt(process.env.REDIS_PORT, 10),
+    password: process.env.REDIS_PWD,
+    db: parseInt(process.env.REDIS_DB, 10),
+  },
   mongoose: {
     dataSource: {
       default: {
@@ -52,4 +51,4 @@ export default {
     writeCookie: false,
     resolver: false,
   },
-};
+} as MidwayConfig;

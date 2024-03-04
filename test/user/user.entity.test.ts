@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Application, Framework } from '@midwayjs/koa';
 import { close, createApp } from '@midwayjs/mock';
 
-import { UserService } from '../../src/user/user.service';
+import { UserService } from '../../src/entity/user/user.service';
 
 describe('UserEntity', () => {
   let app: Application;

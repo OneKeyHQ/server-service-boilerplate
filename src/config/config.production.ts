@@ -1,5 +1,3 @@
-import { baseConfig } from './base';
+import { MidwayConfig } from '@midwayjs/core';
 
-import type { MidwayConfig } from '@midwayjs/core';
-
-export default baseConfig as MidwayConfig;
+export default {} as MidwayConfig;

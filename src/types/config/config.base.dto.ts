@@ -1,75 +1,63 @@
-import { Type } from 'class-transformer';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsObject,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { Rule, RuleType, getSchema } from '@midwayjs/validate';
 
 export class Redis {
-  @IsString()
-  @IsNotEmpty()
+  @Rule(RuleType.string().required())
   host!: string;
 
-  @IsNumber()
+  @Rule(RuleType.number().required())
   port!: number;
 
-  @IsString()
+  @Rule(RuleType.string().required().allow(''))
   password!: string;
 
-  @IsNumber()
+  @Rule(RuleType.number().required())
   db!: number;
 }
 
 class MongooseOptions {
-  @IsString()
-  @IsOptional()
+  @Rule(RuleType.string().optional())
   user?: string;
 
-  @IsString()
-  @IsOptional()
+  @Rule(RuleType.string().optional())
   pass?: string;
 }
 
 class MongooseConfig {
-  @IsString()
+  @Rule(RuleType.string().required())
   uri!: string;
 
-  @IsObject()
-  @ValidateNested()
-  @Type(() => MongooseOptions)
+  @Rule(getSchema(MongooseOptions).required())
   options!: MongooseOptions;
 }
 
 class MongooseDataSource {
-  @IsObject()
-  @ValidateNested()
-  @Type(() => MongooseConfig)
-  @IsOptional()
+  @Rule(getSchema(MongooseConfig).required())
   test?: MongooseConfig;
 
-  @IsObject()
-  @ValidateNested()
-  @Type(() => MongooseConfig)
+  @Rule(getSchema(MongooseConfig).required())
   default!: MongooseConfig;
 }
 
 export class Mongoose {
-  @IsObject()
-  @ValidateNested()
-  @Type(() => MongooseDataSource)
+  @Rule(getSchema(MongooseDataSource).required())
   dataSource!: MongooseDataSource;
 }
 
 export class AWS {
-  @IsString()
+  @Rule(RuleType.string().required())
   awsAccessKeyId!: string;
 
-  @IsString()
+  @Rule(RuleType.string().required())
   awsSecretKey!: string;
 
-  @IsString()
+  @Rule(RuleType.string().required())
   awsRegion!: string;
+}
+
+export class KOAConfig {
+  @Rule(RuleType.number().required())
+  port!: number;
+
+  @Rule(RuleType.string().required())
+  globalPrefix!: string;
 }

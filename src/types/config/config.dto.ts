@@ -1,24 +1,27 @@
-import { Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
+import { Rule, RuleType, getSchema } from '@midwayjs/validate';
 
-import { AWS, Redis } from './config.base.dto';
+import { AWS, KOAConfig, Redis } from './config.base.dto';
 
 export enum RUNTIME_ENV_MAP {
   LOCAL = 'local',
   PRODUCTION = 'production',
   TEST = 'test',
+  JEST = 'jest',
 }
 
 export class ServerEnv {
-  @Type(() => Redis)
-  @ValidateNested()
+  @Rule(getSchema(Redis).required())
   redis: Redis;
 
-  @Type(() => AWS)
-  @ValidateNested()
+  @Rule(getSchema(AWS).required())
   aws!: AWS;
 
+  @Rule(RuleType.string().required())
   NODE_ENV: RUNTIME_ENV_MAP;
 
-  cookieSignKey: string;
+  @Rule(RuleType.string().required())
+  keys: string;
+
+  @Rule(getSchema(KOAConfig).required())
+  koa: KOAConfig;
 }

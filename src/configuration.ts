@@ -1,3 +1,5 @@
+import './init';
+
 import { hostname } from 'os';
 import path, { join } from 'path';
 
@@ -21,6 +23,8 @@ import { sync } from 'read-pkg';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { LocaleMiddleware } from './middleware/locale.middleware';
 import { ResponseWrapperMiddleware } from './middleware/response-wrapper.middleware';
+import { RUNTIME_ENV_MAP, ServerEnv } from './types/config/config.dto';
+import { validateBy } from './utils/common';
 import { CloudwatchTransport } from './utils/logger';
 import { registerModel } from './utils/register-model';
 @Configuration({
@@ -57,11 +61,19 @@ export class MainConfiguration {
   @Inject()
   dataSourceManager: mongoose.MongooseDataSourceManager;
 
+  async onConfigLoad() {
+    const config = this.app.getConfig();
+
+    return validateBy(config, ServerEnv, {
+      allowUnknown: true,
+    });
+  }
+
   async onReady(applicationContext: IMidwayContainer) {
     this.app.useMiddleware([LocaleMiddleware, ResponseWrapperMiddleware]);
     this.app.useFilter([DefaultErrorFilter]);
 
-    if (this.envConfig === 'production') {
+    if (this.envConfig === RUNTIME_ENV_MAP.PRODUCTION) {
       const cloudwatchTransport = new CloudwatchTransport({
         app: this.app.getProjectName(),
         hostname: hostname(),

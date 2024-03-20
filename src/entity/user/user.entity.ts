@@ -27,7 +27,10 @@ const UserSchema = new Schema<User>(
       default: () => randomUUID() as unknown as typeof Schema.Types.UUID,
     },
   },
-  { timestamps: true }
+  {
+    collection: 'User',// 表名统一使用 PascalCase; 表名，列名，索引名所有名字都使用单数
+    timestamps: true
+  }
 );
 
 UserSchema.plugin(MongooseDelete, { overrideMethods: true, deletedAt: true });

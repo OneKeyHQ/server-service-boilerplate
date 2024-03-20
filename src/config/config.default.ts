@@ -11,7 +11,7 @@ const getRedisConfig = (db = 0, options: Record<string, unknown> = {}) => ({
 });
 
 /*
-  default中的配置项，会被覆盖到config.xxxx.ts中
+  default中的配置项，会被config.xxxx.ts中相同配置项覆盖
 */
 export default {
   koa: {

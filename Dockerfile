@@ -28,6 +28,6 @@ RUN yarn run prepare-env\
 
 ENV TZ="Asia/Shanghai"
 
-EXPOSE 7001
+EXPOSE 80
 
 CMD ["yarn", "run", "start"]

@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@aws-sdk/client-cloudwatch-logs": "^3.454.0",
-    "@aws-sdk/client-secrets-manager": "^3.454.0",
+    "@aws-sdk/client-secrets-manager": "^3.858.0",
     "@faker-js/faker": "^8.3.1",
     "@midwayjs/bootstrap": "^3.12.5",
     "@midwayjs/bull": "3",

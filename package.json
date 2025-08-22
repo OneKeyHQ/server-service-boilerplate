@@ -10,7 +10,7 @@
     "@midwayjs/bootstrap": "^3.12.5",
     "@midwayjs/bull": "3",
     "@midwayjs/core": "^3.13.0",
-    "@midwayjs/cross-domain": "^3.12.10",
+    "@midwayjs/cross-domain": "^3.20.10",
     "@midwayjs/decorator": "^3.12.3",
     "@midwayjs/i18n": "3.13.7",
     "@midwayjs/koa": "^3.12.0",

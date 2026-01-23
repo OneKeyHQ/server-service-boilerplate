@@ -22,7 +22,7 @@
     "dotenv": "^16.3.1",
     "glob": "^10.3.10",
     "lint-staged": "^15.2.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "mongoose": "^7.0.0",
     "mongoose-delete": "^1.0.1",
     "read-pkg": "5",

@@ -17,6 +17,7 @@ import * as koa from '@midwayjs/koa';
 import { IMidwayLogger } from '@midwayjs/logger';
 import * as mongoose from '@midwayjs/mongoose';
 import * as redis from '@midwayjs/redis';
+import * as bull from '@midwayjs/bull';
 import * as validate from '@midwayjs/validate';
 import { sync } from 'read-pkg';
 
@@ -34,6 +35,10 @@ import { registerModel } from './utils/register-model';
     i18n,
     redis,
     mongoose,
+    {
+      component: bull,
+      enabledEnvironment: ['local', 'production'],
+    },
     {
       component: crossDomain,
       enabledEnvironment: ['local'],

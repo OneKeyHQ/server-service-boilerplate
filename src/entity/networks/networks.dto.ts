@@ -2,62 +2,53 @@ import { Rule, RuleType } from '@midwayjs/validate';
 
 import { PaginationDTO } from '../common/common.dto';
 
-export class TokenCreateDTO {
+export class NetworkCreateDTO {
   @Rule(RuleType.string().required())
   provider: string;
 
   @Rule(RuleType.string().required())
+  chainName: string;
+
+  @Rule(RuleType.string().required())
   chainCode: string;
 
-  @Rule(RuleType.string().required())
-  address: string;
-
-  @Rule(RuleType.string().required())
-  symbol: string;
+  @Rule(RuleType.string())
+  chainId?: string;
 
   @Rule(RuleType.string())
-  name?: string;
-
-  @Rule(RuleType.number().min(0))
-  decimals?: number;
-
-  @Rule(RuleType.string())
-  logoURI?: string;
+  nativeTokenAddress?: string;
 
   @Rule(RuleType.boolean())
   isActive?: boolean;
 
   @Rule(RuleType.object())
-  raw?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
 
   @Rule(RuleType.date())
   syncedAt?: Date;
 }
 
-export class TokenUpdateDTO {
+export class NetworkUpdateDTO {
   @Rule(RuleType.string())
-  symbol?: string;
+  chainName?: string;
 
   @Rule(RuleType.string())
-  name?: string;
-
-  @Rule(RuleType.number().min(0))
-  decimals?: number;
+  chainId?: string;
 
   @Rule(RuleType.string())
-  logoURI?: string;
+  nativeTokenAddress?: string;
 
   @Rule(RuleType.boolean())
   isActive?: boolean;
 
   @Rule(RuleType.object())
-  raw?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
 
   @Rule(RuleType.date())
   syncedAt?: Date;
 }
 
-export class TokenQueryDTO extends PaginationDTO {
+export class NetworkQueryDTO extends PaginationDTO {
   @Rule(RuleType.string())
   provider?: string;
 
@@ -65,31 +56,26 @@ export class TokenQueryDTO extends PaginationDTO {
   chainCode?: string;
 
   @Rule(RuleType.string())
-  address?: string;
-
-  @Rule(RuleType.string())
-  keyword?: string;
+  chainId?: string;
 
   @Rule(RuleType.boolean())
   isActive?: boolean;
 }
 
-export class TokenItemDTO {
+export class NetworkItemDTO {
   provider: string;
+  chainName: string;
   chainCode: string;
-  address: string;
-  symbol: string;
-  name?: string;
-  decimals?: number;
-  logoURI?: string;
+  chainId: string;
+  nativeTokenAddress: string;
   isActive: boolean;
-  raw?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
   syncedAt: Date;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export class TokenListResponseDTO {
-  result: TokenItemDTO[];
+export class NetworkListResponseDTO {
+  result: NetworkItemDTO[];
   next: string | null;
 }

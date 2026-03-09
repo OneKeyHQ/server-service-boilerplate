@@ -1,0 +1,584 @@
+{
+  "info": {
+    "_postman_id": "879cb9ba-e305-401c-9f0d-86ace0b2e410",
+    "name": "1key",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "8417962"
+  },
+  "item": [
+    {
+      "name": "http://localhost:7001/api/health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/networks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/networks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "networks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/networks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/networks?provider=openocean",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "networks"
+          ],
+          "query": [
+            {
+              "key": "provider",
+              "value": "openocean"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/networks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/networks?provider=openocean&refresh=true",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "networks"
+          ],
+          "query": [
+            {
+              "key": "provider",
+              "value": "openocean"
+            },
+            {
+              "key": "refresh",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/tokens",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/tokens?chainCode=bsc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "tokens"
+          ],
+          "query": [
+            {
+              "key": "chainCode",
+              "value": "bsc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/tokens",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/tokens?chainCode=eth&provider=openocean&keyword=usdt&page=1&pageSize=20",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "tokens"
+          ],
+          "query": [
+            {
+              "key": "chainCode",
+              "value": "eth"
+            },
+            {
+              "key": "provider",
+              "value": "openocean"
+            },
+            {
+              "key": "keyword",
+              "value": "usdt"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/tokens",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/tokens?chainCode=eth&provider=openocean&refresh=true&page=2&pageSize=20",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "tokens"
+          ],
+          "query": [
+            {
+              "key": "chainCode",
+              "value": "eth"
+            },
+            {
+              "key": "provider",
+              "value": "openocean"
+            },
+            {
+              "key": "refresh",
+              "value": "true"
+            },
+            {
+              "key": "page",
+              "value": "2"
+            },
+            {
+              "key": "pageSize",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/quote",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/quote?provider=openocean&chainCode=bsc&inTokenAddress=0x55d398326f99059ff775485246999027b3197955&outTokenAddress=0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d&amountDecimals=5000000000000000000&gasPriceDecimals=1000000000&slippage=1&account=0x9116780aEf4B376499358fa7dEeC00cCF64fA801",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "quote"
+          ],
+          "query": [
+            {
+              "key": "provider",
+              "value": "openocean"
+            },
+            {
+              "key": "chainCode",
+              "value": "bsc"
+            },
+            {
+              "key": "inTokenAddress",
+              "value": "0x55d398326f99059ff775485246999027b3197955"
+            },
+            {
+              "key": "outTokenAddress",
+              "value": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+            },
+            {
+              "key": "amountDecimals",
+              "value": "5000000000000000000"
+            },
+            {
+              "key": "gasPriceDecimals",
+              "value": "1000000000"
+            },
+            {
+              "key": "slippage",
+              "value": "1"
+            },
+            {
+              "key": "account",
+              "value": "0x9116780aEf4B376499358fa7dEeC00cCF64fA801"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/quote",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/swap/quote?provider=openocean&chainCode=bsc&inTokenAddress=0x55d398326f99059ff775485246999027b3197955&outTokenAddress=0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d&gasPriceDecimals=1&slippage=1&account=0x9116780aEf4B376499358fa7dEeC00cCF64fA801&amountDecimals=5000000000000000000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "quote"
+          ],
+          "query": [
+            {
+              "key": "provider",
+              "value": "openocean"
+            },
+            {
+              "key": "chainCode",
+              "value": "bsc"
+            },
+            {
+              "key": "inTokenAddress",
+              "value": "0x55d398326f99059ff775485246999027b3197955"
+            },
+            {
+              "key": "outTokenAddress",
+              "value": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+            },
+            {
+              "key": "gasPriceDecimals",
+              "value": "1"
+            },
+            {
+              "key": "slippage",
+              "value": "1"
+            },
+            {
+              "key": "account",
+              "value": "0x9116780aEf4B376499358fa7dEeC00cCF64fA801"
+            },
+            {
+              "key": "amountDecimals",
+              "value": "5000000000000000000"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/quotes",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"providers\": [\"openocean\"],\n  \"chainCode\": \"eth\",\n  \"inTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n  \"outTokenAddress\": \"0xdac17f958d2ee523a2206206994597c13d831ec7\",\n  \"amountDecimals\": \"1000000000000000000\",\n  \"slippage\": 1,\n  \"gasPriceDecimals\":\"12\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:7001/api/swap/quotes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "quotes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/tx/build",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"openocean\",\n  \"chainCode\": \"bsc\",\n  \"inTokenAddress\": \"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE\",\n  \"outTokenAddress\": \"0x55d398326f99059fF775485246999027B3197955\",\n  \"amountDecimals\": \"5\",\n  \"gasPriceDecimals\": \"1\",\n  \"account\": \"0x28816c4C4792467390C90e5B426F198570E29307\",\n  \"referrer\": \"0xD4eb4cbB1ECbf96a1F0C67D958Ff6fBbB7B037BB\",\n  \"slippage\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:7001/api/swap/tx/build",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "tx",
+            "build"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://open-api.openocean.finance/v4/bsc/swap",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://open-api.openocean.finance/v4/bsc/swap?inTokenAddress=0x55d398326f99059ff775485246999027b3197955&outTokenAddress=0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d&amount=5&gasPrice=1&slippage=1&account=0x9116780aEf4B376499358fa7dEeC00cCF64fA801&referrer=0xD4eb4cbB1ECbf96a1F0C67D958Ff6fBbB7B037BB",
+          "protocol": "https",
+          "host": [
+            "open-api",
+            "openocean",
+            "finance"
+          ],
+          "path": [
+            "v4",
+            "bsc",
+            "swap"
+          ],
+          "query": [
+            {
+              "key": "inTokenAddress",
+              "value": "0x55d398326f99059ff775485246999027b3197955"
+            },
+            {
+              "key": "outTokenAddress",
+              "value": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+            },
+            {
+              "key": "amount",
+              "value": "5"
+            },
+            {
+              "key": "gasPrice",
+              "value": "1"
+            },
+            {
+              "key": "slippage",
+              "value": "1"
+            },
+            {
+              "key": "account",
+              "value": "0x9116780aEf4B376499358fa7dEeC00cCF64fA801"
+            },
+            {
+              "key": "referrer",
+              "value": "0xD4eb4cbB1ECbf96a1F0C67D958Ff6fBbB7B037BB"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/swap/tx/build",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"openocean\",\n  \"chainCode\": \"bsc\",\n  \"inTokenAddress\": \"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE\",\n  \"outTokenAddress\": \"0x55d398326f99059fF775485246999027B3197955\",\n  \"amountDecimals\": \"5\",\n  \"gasPriceDecimals\": \"1000000000\",\n  \"account\": \"0x28816c4C4792467390C90e5B426F198570E29307\",\n  \"referrer\": \"0xD4eb4cbB1ECbf96a1F0C67D958Ff6fBbB7B037BB\",\n  \"slippage\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:7001/api/swap/tx/build",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "swap",
+            "tx",
+            "build"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/gas/estimate",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"chainCode\": \"eth\",\n  \"from\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n  \"to\": \"0x000000000000000000000000000000000000dEaD\",\n  \"value\": \"0\",\n  \"data\": \"0x\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:7001/api/gas/estimate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "gas",
+            "estimate"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:7001/api/gas/price",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7001/api/gas/price?chainCode=eth",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7001",
+          "path": [
+            "api",
+            "gas",
+            "price"
+          ],
+          "query": [
+            {
+              "key": "chainCode",
+              "value": "eth"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

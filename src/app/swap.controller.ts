@@ -1,4 +1,7 @@
+import { PassThrough } from 'stream';
+
 import { Body, Controller, Get, Inject, Post, Query } from '@midwayjs/core';
+import { Context } from '@midwayjs/koa';
 import { Rule, RuleType } from '@midwayjs/validate';
 import { NetworkService } from '../entity/networks/networks.service';
 import { buildUnsignedTx as buildChainUnsignedTx } from '../chain/indexer';
@@ -209,7 +212,20 @@ interface SwapBuildTxResponse extends BuildTxResult {
    */
   unsignedTx: UnsignedTx;
 }
-// const
+class SwapQuotesPollQuery extends SwapQuoteBaseRequest {
+  // 渠道列表（至少 1 个）
+  @Rule(RuleType.array().items(RuleType.string().required()).min(1).required())
+  providers: string[];
+
+  // 轮询间隔（秒，范围 3-60，默认 5）
+  @Rule(RuleType.number().integer().min(3).max(60))
+  interval?: number;
+}
+
+const POLL_INTERVAL_DEFAULT_S = 5;
+const POLL_INTERVAL_MIN_S = 3;
+const POLL_INTERVAL_MAX_S = 60;
+
 const SUPPORTED_PROVIDERS: string[] = ['openocean'];
 const DEFAULT_PROVIDER = SUPPORTED_PROVIDERS[0] || 'openocean';
 const NETWORK_CACHE_LIMIT = 500;
@@ -229,6 +245,9 @@ export class SwapController {
 
   @Inject()
   tokenService: TokenService;
+
+  @Inject()
+  ctx: Context;
 
   // 获取支持网络列表
   @Get('/networks')
@@ -398,6 +417,103 @@ export class SwapController {
       ...result,
       bestQuote: this.pickBestQuote(result.quotes),
     };
+  }
+
+  // 多渠道轮询询价（SSE）
+  // 连接后立即执行首轮，之后每隔 interval 秒重新询价，每个渠道结果到达时立刻推送
+  // 客户端断开连接时自动停止轮询
+  @Post('/quotes/poll')
+  async quotePoll(@Body() body: SwapQuotesPollQuery): Promise<void> {
+    const providers = this.normalizeProviders(body.providers);
+    if (providers.length <= 0) {
+      throw ResParamsError('providers is required');
+    }
+    for (const provider of providers) {
+      this.ensureSupportedProvider(provider);
+    }
+    this.ensureRequiredQuoteFields(body.amountDecimals, body.gasPriceDecimals);
+
+    const intervalMs =
+      Math.max(
+        POLL_INTERVAL_MIN_S,
+        Math.min(POLL_INTERVAL_MAX_S, Number(body.interval || POLL_INTERVAL_DEFAULT_S))
+      ) * 1000;
+
+    const request: QuoteRequest = {
+      chainCode: this.normalizeChainCode(body.chainCode),
+      inTokenAddress: body.inTokenAddress,
+      outTokenAddress: body.outTokenAddress,
+      amountDecimals: body.amountDecimals,
+      slippage: body.slippage,
+      account: body.account,
+      gasPriceDecimals: body.gasPriceDecimals,
+      enabledDexIds: body.enabledDexIds,
+      disabledDexIds: body.disabledDexIds,
+    };
+
+    const ctx = this.ctx;
+    ctx.set('Content-Type', 'text/event-stream');
+    ctx.set('Cache-Control', 'no-cache');
+    ctx.set('Connection', 'keep-alive');
+    ctx.status = 200;
+
+    const stream = new PassThrough();
+    ctx.body = stream;
+
+    const write = (event: string, data: unknown) => {
+      if (!stream.destroyed) {
+        stream.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+      }
+    };
+
+    let round = 0;
+    let isPolling = false;
+
+    const runRound = async () => {
+      if (isPolling || stream.destroyed) return;
+      isPolling = true;
+      round += 1;
+      const currentRound = round;
+      const collectedQuotes: QuoteResult[] = [];
+
+      await Promise.all(
+        providers.map(async provider => {
+          try {
+            const quote = await this.providerManager.quote(provider, request);
+            collectedQuotes.push(quote);
+            write('quote', { round: currentRound, provider, status: 'success', quote, ts: Date.now() });
+          } catch (err) {
+            const providerErr = err as { code?: string; message?: string };
+            write('quote', {
+              round: currentRound,
+              provider,
+              status: 'error',
+              error: { code: providerErr.code ?? 'UNKNOWN', message: String(providerErr.message ?? err) },
+              ts: Date.now(),
+            });
+          }
+        })
+      );
+
+      write('round_done', {
+        round: currentRound,
+        bestQuote: this.pickBestQuote(collectedQuotes),
+        successCount: collectedQuotes.length,
+        failCount: providers.length - collectedQuotes.length,
+        ts: Date.now(),
+      });
+
+      isPolling = false;
+    };
+
+    // 立即执行第一轮
+    runRound();
+    const timer = setInterval(runRound, intervalMs);
+
+    ctx.req.on('close', () => {
+      clearInterval(timer);
+      stream.destroy();
+    });
   }
 
   // 构建兑换交易（不广播）

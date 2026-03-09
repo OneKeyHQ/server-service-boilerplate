@@ -79,7 +79,95 @@ curl --request POST \
 }'
 ```
 
-## 6) 构建交易
+## 6) 多渠道轮询询价（SSE）
+
+使用 POST + JSON Body，服务端通过 SSE 推送每轮询价结果。
+`Ctrl+C` 断开连接，服务端自动停止轮询。
+
+### 6.1 默认间隔（5 秒）
+
+```bash
+curl --no-buffer --request POST \
+  --url 'http://localhost:7001/api/swap/quotes/poll' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "providers": ["openocean"],
+  "chainCode": "eth",
+  "inTokenAddress": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "outTokenAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+  "amountDecimals": "1000000000000000000",
+  "gasPriceDecimals": "12",
+  "slippage": 1
+}'
+```
+
+### 6.2 自定义间隔（10 秒）
+
+```bash
+curl --no-buffer --request POST \
+  --url 'http://localhost:7001/api/swap/quotes/poll' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "providers": ["openocean"],
+  "chainCode": "eth",
+  "inTokenAddress": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "outTokenAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+  "amountDecimals": "1000000000000000000",
+  "gasPriceDecimals": "12",
+  "slippage": 1,
+  "interval": 10
+}'
+```
+
+### 6.3 多渠道（interval 3 秒）
+
+```bash
+curl --no-buffer --request POST \
+  --url 'http://localhost:7001/api/swap/quotes/poll' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "providers": ["openocean", "1inch"],
+  "chainCode": "bsc",
+  "inTokenAddress": "0x55d398326f99059ff775485246999027b3197955",
+  "outTokenAddress": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+  "amountDecimals": "5000000000000000000",
+  "gasPriceDecimals": "1000000000",
+  "slippage": 1,
+  "account": "0x9116780aEf4B376499358fa7dEeC00cCF64fA801",
+  "interval": 3
+}'
+```
+
+**响应事件格式：**
+
+```
+event: quote
+data: {"round":1,"provider":"openocean","status":"success","quote":{...},"ts":1234567890}
+
+event: quote
+data: {"round":1,"provider":"1inch","status":"error","error":{"code":"SWAP_PROVIDER_TIMEOUT","message":"..."},"ts":1234567891}
+
+event: round_done
+data: {"round":1,"bestQuote":{...},"successCount":1,"failCount":1,"ts":1234567892}
+
+# 等待 interval 秒后第 2 轮继续...
+```
+
+**参数说明：**
+
+| 参数 | 必填 | 说明 |
+|------|------|------|
+| `providers[]` | 是 | 渠道列表，可传多个 |
+| `chainCode` | 是 | 链编码，如 `eth`、`bsc` |
+| `inTokenAddress` | 是 | 输入代币地址 |
+| `outTokenAddress` | 是 | 输出代币地址 |
+| `amountDecimals` | 是 | 输入数量（最小单位） |
+| `gasPriceDecimals` | 是 | Gas Price（最小单位） |
+| `slippage` | 否 | 滑点 |
+| `account` | 否 | 钱包地址 |
+| `interval` | 否 | 轮询间隔秒数，范围 `[3, 60]`，默认 `5` |
+
+## 7) 构建交易
 
 ### 6.1 buildTx 示例 1
 

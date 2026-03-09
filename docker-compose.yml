@@ -1,0 +1,86 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: local
+    container_name: swap-server
+    environment:
+      NODE_ENV: local
+      PORT: 7001
+      GLOBAL_PREFIX: /api
+      COOKIE_SIGN_KEY: local-cookie-sign-key
+      AWS_ACCESS_KEY_ID: local-access-key
+      AWS_SECRET_KEY: local-secret-key
+      AWS_REGION: us-east-1
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PWD: ""
+      REDIS_DB: 0
+      MONGODB_URI: mongodb://mongo:27017/onekey_swap?authSource=admin
+      MONGODB_USER: root
+      MONGODB_PASSWORD: root
+    ports:
+      - "7001:7001"
+    depends_on:
+      redis:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    container_name: swap-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: swap-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: onekey_swap
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mongosh --quiet --username $$MONGO_INITDB_ROOT_USERNAME --password $$MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --eval 'db.runCommand({ ping: 1 }).ok' | grep 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  mongo-express:
+    image: mongo-express:1-20-alpine3.19
+    container_name: swap-mongo-express
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/?authSource=admin
+      ME_CONFIG_BASICAUTH: "false"
+    ports:
+      - "8081:8081"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  mongo_data:

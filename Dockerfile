@@ -15,16 +15,16 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-ARG NODE_ENV=production
+ARG NODE_ENV=local
 ENV NODE_ENV $NODE_ENV
 
 RUN apk add --no-cache tzdata && rm -rf /var/cache/apk/*
 
 COPY --from=build /app /app
 
-RUN yarn run prepare-env\
-  && yarn workspaces focus --production\
-  && yarn cache clean
+# RUN yarn run prepare-env\
+#   && yarn workspaces focus --production\
+RUN yarn cache clean
 
 ENV TZ="Asia/Shanghai"
 

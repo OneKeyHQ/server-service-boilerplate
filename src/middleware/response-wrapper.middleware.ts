@@ -9,6 +9,9 @@ export class ResponseWrapperMiddleware
   resolve() {
     return async (ctx: Context, next: NextFunction) => {
       const result = await next();
+      if (ctx.response.get('Content-Type')?.includes('text/event-stream')) {
+        return;
+      }
       const i18nService = await ctx.requestContext.getAsync(
         i18nServiceBasic.MidwayI18nService
       );

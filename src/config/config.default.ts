@@ -10,6 +10,8 @@ const getRedisConfig = (db = 0, options: Record<string, unknown> = {}) => ({
   ...options,
 });
 
+const redisClientConfig = getRedisConfig(parseInt(process.env.REDIS_DB, 10));
+
 /*
   default中的配置项，会被config.xxxx.ts中相同配置项覆盖
 */
@@ -24,7 +26,20 @@ export default {
       enableConsole: false,
     },
   },
-  redis: getRedisConfig(parseInt(process.env.REDIS_DB, 10)),
+  redis: {
+    ...redisClientConfig,
+    client: redisClientConfig,
+    defaultClientName: 'default',
+  },
+  bull: {
+    defaultQueueOptions: {
+      redis: {
+        ...redisClientConfig,
+        // Prevent ioredis from throwing MaxRetriesPerRequestError under transient failures.
+        maxRetriesPerRequest: null,
+      },
+    },
+  },
   mongoose: {
     dataSource: {
       default: {

@@ -20,6 +20,7 @@
     "@midwayjs/validate": "3",
     "@typegoose/typegoose": "^11.7.1",
     "dotenv": "^16.3.1",
+    "ethers": "^6.16.0",
     "glob": "^10.3.10",
     "lint-staged": "^15.2.2",
     "lodash": "^4.17.21",

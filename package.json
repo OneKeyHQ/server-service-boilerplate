@@ -21,7 +21,7 @@
     "@typegoose/typegoose": "^11.7.1",
     "dotenv": "^16.3.1",
     "glob": "^10.3.10",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "^16.0.0",
     "lodash": "^4.17.21",
     "mongoose": "^7.0.0",
     "mongoose-delete": "^1.0.1",

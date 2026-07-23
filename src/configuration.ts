@@ -1,4 +1,5 @@
-import './init';
+// eslint-disable-next-line import/order
+import './init'; // XXX: must run before all code
 
 import { hostname } from 'os';
 import path, { join } from 'path';
@@ -23,10 +24,11 @@ import { sync } from 'read-pkg';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { LocaleMiddleware } from './middleware/locale.middleware';
 import { ResponseWrapperMiddleware } from './middleware/response-wrapper.middleware';
-import { RUNTIME_ENV_MAP, ServerEnv } from './types/config/config.dto';
-import { validateBy } from './utils/common';
+import { NODE_ENV, ConfigDTO } from './types/config.dto';
+import { validateBy } from './utils';
 import { CloudwatchTransport } from './utils/logger';
 import { registerModel } from './utils/register-model';
+
 @Configuration({
   imports: [
     koa,
@@ -64,7 +66,7 @@ export class MainConfiguration {
   async onConfigLoad() {
     const config = this.app.getConfig();
 
-    return validateBy(config, ServerEnv, {
+    return validateBy(config, ConfigDTO, {
       allowUnknown: true,
     });
   }
@@ -73,7 +75,7 @@ export class MainConfiguration {
     this.app.useMiddleware([LocaleMiddleware, ResponseWrapperMiddleware]);
     this.app.useFilter([DefaultErrorFilter]);
 
-    if (this.envConfig === RUNTIME_ENV_MAP.PRODUCTION) {
+    if (this.envConfig === NODE_ENV.PRODUCTION) {
       const cloudwatchTransport = new CloudwatchTransport({
         app: this.app.getProjectName(),
         hostname: hostname(),

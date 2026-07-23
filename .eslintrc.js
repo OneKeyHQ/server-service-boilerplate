@@ -1,4 +1,3 @@
-const isDev = process.env.NODE_ENV !== 'production';
 const jsRules = {
   // eslint-disable-next-line global-require
   'prettier/prettier': ['error', require('./.prettierrc.js')],
@@ -25,7 +24,7 @@ const tsRules = {
   '@typescript-eslint/default-param-last': 'off',
   '@typescript-eslint/consistent-type-imports': 'off',
   '@typescript-eslint/no-var-requires': 'off',
-  '@typescript-eslint/no-unused-vars': [isDev ? 'warn' : 'error'],
+  '@typescript-eslint/no-unused-vars': ['error'],
   '@typescript-eslint/no-use-before-define': ['error'],
   '@typescript-eslint/no-shadow': ['error'],
   '@typescript-eslint/explicit-module-boundary-types': 'off',

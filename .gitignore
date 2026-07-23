@@ -13,6 +13,7 @@ run/
 .tsbuildinfo
 .tsbuildinfo.*
 .env
+config.json
 junit.xml
 test-report.html
 jest-stare/
